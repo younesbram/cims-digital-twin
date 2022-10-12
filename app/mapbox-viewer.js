@@ -1,4 +1,3 @@
-import createAuth0Client from '@auth0/auth0-spa-js';
 import canada from "./canada.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import {
@@ -16,16 +15,6 @@ import {
 } from "three";
 
 import * as cdt from "../modules/cdt-api";
-
-//Creating Auth0 Client
-
-//with async/await
-const auth0 = await createAuth0Client({
-  domain: 'dev-pn-w47pf.us.auth0.com',
-  client_id: 'Zfsn92Uk9HOaD3e14OgaSiRVkUTaZ4HP',
-  redirect_uri: 'https://cimsprojects.ca/CDT/'
-});
-
 // GLOBAL OBJECTS 🌎  _________________________________________________________________________________________
 
 const isMobile =
