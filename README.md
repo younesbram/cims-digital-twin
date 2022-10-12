@@ -1,9 +1,15 @@
 # CIMS - Digital Twin 
 open directory, 
 
-in terminal : npm install\n
+in terminal : npm install
 
-then: nodemon app/app.js or node app/app.js
+then: 
+
+nodemon app/app.js 
+
+or
+
+node app/app.js
 
 visit localhost:3000
 
