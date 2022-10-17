@@ -89,19 +89,14 @@ cdt.closeWindow();
 
 // ICDT 🍁
 let icdtToggle = false;
-icdtToggle = openWindow(
-  "icdt",
-  icdtToggle,
-  "https://canadasdigitaltwin.ca",
-  "icdt"
-);
+icdtToggle = openWindow("icdt", icdtToggle, "https://canadasdigitaltwin.ca", "icdt");
 
 function openWindow(item, toggle, url = `${item}.html`, className) {
   const button = document.getElementById(`${item}-button`);
-  let buttons = Array.from(button.parentElement.children);
+  let buttons = Array.from(button.parentElement.children)
   button.addEventListener("click", () => {
-    buttons.forEach((b) => {
-      b.classList.remove("selected-button");
+    buttons.forEach(b => {
+      b.classList.remove('selected-button')
     });
     if (!toggle) openIframe(url, className);
     cdt.selectedButton(button, !toggle);
@@ -598,7 +593,10 @@ function selectObject(selector) {
   selector.addEventListener("change", () => {
     let id = selector[selector.selectedIndex].id;
     if (id === "add-object") {
+<<<<<<< HEAD
       document.getElementById("add-object-button").click();
+=======
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
       document.getElementById("tools-container").classList.remove("hidden");
       cancelPlace.click();
       addLocMarker("object");
@@ -691,12 +689,16 @@ function setPlace(place, provinceTerm, cityName) {
       loadMasses(visibleMasses, place, true);
     }
   } else {
+<<<<<<< HEAD
     if (
       document
         .getElementById("osm-button")
         .classList.contains("selected-button")
     )
       osmButton.click();
+=======
+    if (document.getElementById('osm-button').classList.contains('selected-button')) osmButton.click()
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
     loadMasses(invisibleMasses, place, false);
     if (isMobile) {
       cdt.hideElementsById("place-select");
@@ -906,7 +908,10 @@ function mapbox() {
       i++;
     });
     console.log(province.term, city.name);
+<<<<<<< HEAD
     console.log(e.result.text);
+=======
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
     province = canada.provinces[province.term];
     city = province.cities[city.name];
     places = city.places;
@@ -914,7 +919,11 @@ function mapbox() {
     cdt.unhideElementsById("place-select", "add-place-button");
     addPlaceGeojson(places);
     createLayerButtons(city);
+<<<<<<< HEAD
     osmButton.click();
+=======
+    osmButton.click()
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
   });
 }
 
@@ -1005,11 +1014,14 @@ function addNewPlace() {
   canada.provinces[province.term].cities[city.name].places[newPlaceId] =
     newPlace;
   place = newPlace;
+<<<<<<< HEAD
   cdt.createOptions(
     placeSelector,
     canada.provinces[province.term].cities[city.name].places,
     2
   );
+=======
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
   cdt.createOptions(objectSelector, place.objects, 2);
   console.log(canada.provinces[province.term].cities[city.name]);
   cdt.unhideElementsById("object-select", "add-object-button");
@@ -1027,6 +1039,7 @@ function addNewObject() {
   newObject.coordinates.msl = document.getElementById("object-msl").value;
   newObject.coordinates.trueNorth =
     document.getElementById("object-true-north").value;
+<<<<<<< HEAD
     document.getElementById("object-id").addEventListener('change', () => {
       console.log(newObject.name)
       if (newObject.name === "") newObject.name = "unnamed"
@@ -1035,6 +1048,9 @@ function addNewObject() {
       loadObjectGltf(place, newObjectId)
     } )
 
+=======
+  // newObject.glbFile = document.getElementById("object-glb-input");
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
   if (!canada.provinces[province.term].cities.hasOwnProperty(city.name))
     canada.provinces[province.term].cities[city.name] = { name: city.name };
   if (
@@ -1054,7 +1070,10 @@ function addNewObject() {
     canada.provinces[province.term].cities[city.name].places[place.id].objects,
     2
   );
+<<<<<<< HEAD
 object = newObject;
+=======
+>>>>>>> 07c36ba (Navigation3 - preparing demo1 pull request (#5))
 
   // 🔍find out if new object is inside place:
   // let isInPlace = turf.booleanPointInPolygon(pt, polygon);
