@@ -16,6 +16,7 @@ const mongo = require('mongodb');
 use <Canada> //Create if it doesn't exist, Open if it does - Database
 
 ////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
+/*
 db.province.insertMany({
     name: "Alberta",
     code: 48,
@@ -138,8 +139,7 @@ db.province.insertMany({
 db.city.insertMany({
     name: "Ottawa",
     province: "ON",
-    layers: ''
-    /*layers: {
+    layers: {
         busStops: setLayer(
           "busStops",
           "OCTranspo bus stops",
@@ -154,10 +154,9 @@ db.city.insertMany({
           "green",
           ottawaTrees
         ),
-    },*/
-
-
+    },
 })
+*/
 
 db.place.insertMany({
     name: "Carleton University",
