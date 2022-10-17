@@ -11,3 +11,6 @@
 
 //POSTS
 //Sending a 'new place's data to the server
+//Mapbox-viewer - line 933-946
+
+//Connected to 
