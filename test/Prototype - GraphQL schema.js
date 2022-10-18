@@ -4,14 +4,17 @@
 /*How is the gltfMasses being used?*/ 
 /*What is in Properties?*/
 
+//Objects will have coordinates
+
 const { buildSchema } = require("graphql");
 
 const schema = buildSchema(`
 
     type Query{
-
+        places: [Place!]!,
+        place(id: String!): Place!
     }
-    
+
     type Place{
         name: String!
         id: String!
@@ -19,7 +22,7 @@ const schema = buildSchema(`
         gltfMasses: String
         ifcPath: String
         jsonPropertiesPath:
-        coordinates: [Coordinates!]
+        //coordinates: [Coordinates!] //placeGeojson takes care of that
         context: [Context]
         placeGeojson: [PlaceGeojson]
     }
@@ -28,7 +31,8 @@ const schema = buildSchema(`
         lat: Float!
         lng: Float!
         msl: Float
-        zoom: Float
+        //zoom: Float
+        angle: Float
     }
 
     type PlaceGeojson{
