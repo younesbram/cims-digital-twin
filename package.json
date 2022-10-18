@@ -1,44 +1,581 @@
 {
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "rollup": "^2.79.1"
-  },
-  "dependencies": {
-    "@auth0/auth0-spa-js": "^1.22.4",
-    "camera-controls": "^1.35.0",
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
-    "cpy-cli": "^4.1.0",
-    "express": "^4.18.2",
-    "express-openid-connect": "^2.8.0",
-    "express-session": "^1.17.3",
-    "helmet": "^6.0.0",
-    "mapbox": "^1.0.0-beta10",
-    "mapbox-gl-style-switcher": "^1.0.11",
-    "stats.js": "^0.17.0",
-    "three": "^0.135.0",
-    "three-mesh-bvh": "^0.5.14",
-    "web-ifc-three": "^0.0.117",
-    "web-ifc-viewer": "^1.0.213"
-  },
-  "name": "ifc-js-crash-course",
-  "description": "https://nicoarellano.github.io/ifc-js-crash-course/src",
-  "version": "0.0.1",
-  "main": "model-viewer.js",
-  "scripts": {
-    "build": "rollup -c ./rollup.config.js",
-    "watch": "rollup -w -c ./rollup.config.js",
-    "update-ifcjs": "npm i web-ifc-three@latest && npm i && copy-wasm",
-    "copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nicoarellano/cims-digital-twin.git"
-  },
-  "author": "Nico",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nicoarellano/cims-digital-twin/issues"
-  },
-  "homepage": "https://github.com/nicoarellano/cims-digital-twin.html/src/index.html"
+  
+
+
+
+
+
+
+
+"devDependencies": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"@rollup/plugin-node-resolve": "^13.3.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"rollup": "^2.79.1"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"dependencies": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"@auth0/auth0-spa-js": "^1.22.4",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"camera-controls": "^1.35.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"compression": "^1.7.4",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"cookie-parser": "^1.4.6",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"cpy-cli": "^4.1.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"express": "^4.18.2",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"express-openid-connect": "^2.8.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"express-session": "^1.17.3",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"helmet": "^6.0.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"mapbox": "^1.0.0-beta10",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"mapbox-gl-style-switcher": "^1.0.11",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"stats.js": "^0.17.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"three": "^0.135.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"three-mesh-bvh": "^0.5.14",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"web-ifc-three": "^0.0.117",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"web-ifc-viewer": "^1.0.213"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"name": "ifc-js-crash-course",
+  
+
+
+
+
+
+
+
+"description": "https://nicoarellano.github.io/ifc-js-crash-course/src",
+  
+
+
+
+
+
+
+
+"version": "0.0.1",
+  
+
+
+
+
+
+
+
+"main": "model-viewer.js",
+  
+
+
+
+
+
+
+
+"scripts": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"build": "rollup -c ./rollup.config.js",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"watch": "rollup -w -c ./rollup.config.js",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"update-ifcjs": "npm i web-ifc-three@latest && npm i && copy-wasm",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm",
+"start": "SET NODE_ENV=production&&nodemon app/app.js"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"repository": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"type": "git",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"url": "git+https://github.com/nicoarellano/cims-digital-twin.git"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"author": "Nico",
+  
+
+
+
+
+
+
+
+"license": "MIT",
+  
+
+
+
+
+
+
+
+"bugs": {
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"url": "https://github.com/nicoarellano/cims-digital-twin/issues"
+  
+
+
+
+
+
+
+
+},
+  
+
+
+
+
+
+
+
+"homepage": "https://github.com/nicoarellano/cims-digital-twin.html/src/index.html"
 }
