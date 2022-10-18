@@ -1,23 +1,30 @@
 //Prototype 1 - Database server for Canada.js
-//This prototype uses Node.js and Express.js
-
-//Setting the server
 
 const fs = require("fs"); // allows us to work with filesystem
-
 //Express
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser'); //parses body of request when using POST request 
+const app = express();
+app.listen(3000);
 //mongoDB
 const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 //pug
 const pug = require('pug');
 
-app.listen(3000);
+//middleware
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.set("templates");
+app.set('view engine', 'pug');
+app.use(express.static("public"));
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
-//use <cimsTest> //Create if it doesn't exist, Open if it does - Database
+//sendfile to be able to use html with express
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '/index.html'))
+})
 
 //connecting to database
 MongoClient.connect('mongodb://localhost:3000/cimsTest', function(err, db) {
@@ -32,9 +39,13 @@ MongoClient.connect('mongodb://localhost:3000/cimsTest', function(err, db) {
 app.route(["/"])
     .get((req, res) => {
         res.status(200);
-        res.setDefaultEncoding("Content-Type","text/html");
-        res.send(pug.renderFile("/Testindex.pug", ))
+        res.setHeader("Content-Type","text/html");
+        res.send(pug.renderFile("../index.html", ))
     });
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
 //TEST new branch
