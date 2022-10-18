@@ -158,7 +158,9 @@ db.city.insertMany({
 })
 */
 
-db.place.insertMany({
+//TEST new branch
+
+/*db.place.insertMany({
     name: "Carleton University",
     id: "CDC",
     coordinates: {                
@@ -173,25 +175,18 @@ db.place.insertMany({
     ifcPath: "assets/ON/Ottawa/CDC/ifc/",
     jsonPropertiesPath: "assets/ON/Ottawa/CDC/json/ON_Ottawa_CDC_",
     placeGeojson: {},
-})
+})*/
 
 //I think calling the buildings 'Object' can be problematic - Since 'Object' is a structure already it can make conversations confusing
-db.objects.insertMany()
-
-////setting some recurring variables that will be called by the client
-let all_provinces_name = db.province.find({}, {name:1})
-let all_cities_name = db.province.find({}, {name:1})
-let all_places_name = db.province.find({}, {name:1})
-let all_object_name = db.province.find({}, {name:1})
+//db.objects.insertMany()
 
 //GETS - information requested by the client
-
-////for dropdowns
-
-////for map movements
+  //Client is Requesting places names
+  //Client is Requesting a 'place's geoJSON 
 
 //POSTs - information sent by the client
-
-////creating a place
+  //Client is Sending a 'new place's data to the server
+    //(Authentication ? here or client side)
+    //Push the data to 'place' collection in 'canada' db
 
 //Closing Database
