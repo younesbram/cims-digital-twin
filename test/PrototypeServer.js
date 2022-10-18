@@ -9,16 +9,37 @@ const fs = require("fs"); // allows us to work with filesystem
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser'); //parses body of request when using POST request 
-
 //mongoDB
-const mongo = require('mongodb');
+const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+//pug
+const pug = require('pug');
 
-use <cimsTest> //Create if it doesn't exist, Open if it does - Database
+app.listen(3000);
+
+//use <cimsTest> //Create if it doesn't exist, Open if it does - Database
+
+//connecting to database
+MongoClient.connect('mongodb://localhost:3000/cimsTest', function(err, db) {
+   // useNewUrlParser: true
+    if (err) throw err;
+    console.log("Database 'cimsTest' created")
+    console.log(db.db)
+
+    db.close();
+});
+
+app.route(["/"])
+    .get((req, res) => {
+        res.status(200);
+        res.setDefaultEncoding("Content-Type","text/html");
+        res.send(pug.renderFile("/Testindex.pug", ))
+    });
 
 ////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
 //TEST new branch
 
-db.place.insertMany({
+/*db.place.insertMany({
     name: "Carleton University",
     id: "CDC",
     coordinates: {                
@@ -237,8 +258,7 @@ db.place.insertMany({
           }
       ]
   },
-})
-
+})*/
 
 //GETS - information requested by the client
   //Client is Requesting places names
@@ -250,14 +270,3 @@ db.place.insertMany({
     //Push the data to 'place' collection in 'canada' db
 
 
-//connecting to database
-mongodb.connect('mongodb://localhost/cimsTest', {useNewUrlParser: true, useUnifiedTopology: true});
-
-let db = mongodb.connection;
-db.on('error', console.error.bind(console, 'Error connecting to database'));
-db.once('open', function(){
-	User.init(()=>{
-		//startServer();
-		app.listen(3000);
-	})
-});
