@@ -13,154 +13,12 @@ const bodyParser = require('body-parser'); //parses body of request when using P
 //mongoDB
 const mongo = require('mongodb');
 
-use <Canada> //Create if it doesn't exist, Open if it does - Database
+use <cimsTest> //Create if it doesn't exist, Open if it does - Database
 
 ////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
-/*
-db.province.insertMany({
-    name: "Alberta",
-    code: 48,
-    term: "AB",
-    concise: "PROV",
-    coordinates: {
-        lat: 55,
-        lng: -115,
-    },
-
-    name: "British Columbia",
-    code: 59,
-    term: "BC",
-    concise: "PROV",
-    coordinates: {
-        lat: 53.726669,
-        lng: -127.647621,
-    },
-
-    name: "Manitoba",
-    code: 46,
-    term: "MB",
-    concise: "PROV",
-    coordinates: {
-      lat: 56.415211,
-      lng: -98.739075,
-    },
-
-    name: "New Brunswick",
-    code: 13,
-    term: "NB",
-    concise: "PROV",
-    coordinates: {
-      lat: 46.49839,
-      lng: -66.159668,
-    },
-
-    name: "Newfoundland and Labrador",
-    code: 10,
-    term: "NL",
-    concise: "PROV",
-    coordinates: {
-      lat: 53.135509,
-      lng: -57.660435,
-    },
-
-    name: "Nova Scotia",
-    code: 12,
-    term: "NS",
-    concise: "PROV",
-    coordinates: {
-      lat: 45,
-      lng: -63,
-    },
-
-    name: "Ontario",
-    code: 35,
-    term: "ON",
-    concise: "PROV",
-    coordinates: {
-      lat: 47.75,
-      lng: -84.83333,
-    },
-
-    name: "Prince Edward Island",
-    code: 11,
-    term: "PE",
-    concise: "PROV",
-    coordinates: {
-      lat: 46.25,
-      lng: -63,
-    },
-
-    name: "Quebec",
-    code: 24,
-    term: "QC",
-    concise: "PROV",
-    coordinates: {
-      lat: 52.9399,
-      lng: -73.5491,
-    },
-
-    name: "Saskatchewan",
-    code: 47,
-    term: "SK",
-    concise: "PROV",
-    coordinates: {
-      lat: 55,
-      lng: -106,
-    },
-
-    name: "Northwest Territories",
-    code: 61,
-    term: "NT",
-    concise: "TERR",
-    coordinates: {
-      lat: 64.26667,
-      lng: -119.18333,
-    },
-
-    name: "Nunavut",
-    code: 62,
-    term: "NU",
-    concise: "TERR",
-    coordinates: {
-      lat: 64.15,
-      lng: -95.5,
-    },
-
-    name: "Yukon",
-    code: 60,
-    term: "YU",
-    concise: "TERR",
-    coordinates: {
-      lat: 63.63333,
-      lng: -135.76666,
-    },
-})
-
-db.city.insertMany({
-    name: "Ottawa",
-    province: "ON",
-    layers: {
-        busStops: setLayer(
-          "busStops",
-          "OCTranspo bus stops",
-          "assets/ON/Ottawa/json/ON-Ottawa-busStops.json",
-          "#CE343B",
-          ocTranspo
-        ),
-        trees: setLayer(
-          "trees",
-          "Ottawa trees",
-          "assets/ON/Ottawa/json/ON-Ottawa-trees.json",
-          "green",
-          ottawaTrees
-        ),
-    },
-})
-*/
-
 //TEST new branch
 
-/*db.place.insertMany({
+db.place.insertMany({
     name: "Carleton University",
     id: "CDC",
     coordinates: {                
@@ -174,11 +32,213 @@ db.city.insertMany({
     context: {},
     ifcPath: "assets/ON/Ottawa/CDC/ifc/",
     jsonPropertiesPath: "assets/ON/Ottawa/CDC/json/ON_Ottawa_CDC_",
-    placeGeojson: {},
-})*/
+    placeGeojson: {
+      "type": "FeatureCollection",
+      "features": [
+          {
+              "id": "19dc5ef9a24233ad4afb7d1302c22fdd",
+              "type": "Feature",
+              "properties": {},
+              "geometry": {
+                  "coordinates": [
+                      [
+                          [
+                              -75.70130847450181,
+                              45.37885250495145
+                          ],
+                          [
+                              -75.70137939763889,
+                              45.37980901336084
+                          ],
+                          [
+                              -75.70135583631776,
+                              45.38030630124288
+                          ],
+                          [
+                              -75.70121704393954,
+                              45.38090837256641
+                          ],
+                          [
+                              -75.70099854247466,
+                              45.381450056900064
+                          ],
+                          [
+                              -75.70060484922253,
+                              45.38211641055423
+                          ],
+                          [
+                              -75.70008737069259,
+                              45.382740714944276
+                          ],
+                          [
+                              -75.69969929631793,
+                              45.383175040095466
+                          ],
+                          [
+                              -75.69929194863562,
+                              45.38371277931921
+                          ],
+                          [
+                              -75.69907805981924,
+                              45.38429189332331
+                          ],
+                          [
+                              -75.69904478398492,
+                              45.38497602583672
+                          ],
+                          [
+                              -75.69909336044309,
+                              45.38548029251106
+                          ],
+                          [
+                              -75.6994998225633,
+                              45.38680240419842
+                          ],
+                          [
+                              -75.70011820026312,
+                              45.38878531622905
+                          ],
+                          [
+                              -75.7002494447103,
+                              45.38930514072814
+                          ],
+                          [
+                              -75.70027488697272,
+                              45.389913266598825
+                          ],
+                          [
+                              -75.70020978237254,
+                              45.390320257103326
+                          ],
+                          [
+                              -75.69991595080752,
+                              45.39103030132526
+                          ],
+                          [
+                              -75.69928511310589,
+                              45.39176861547989
+                          ],
+                          [
+                              -75.69745214270708,
+                              45.39302028113309
+                          ],
+                          [
+                              -75.69715753292641,
+                              45.3928071905959
+                          ],
+                          [
+                              -75.69697423870397,
+                              45.392731520039945
+                          ],
+                          [
+                              -75.69666199972447,
+                              45.39271181280864
+                          ],
+                          [
+                              -75.69610568392059,
+                              45.39269918139857
+                          ],
+                          [
+                              -75.69594219066164,
+                              45.39261117859749
+                          ],
+                          [
+                              -75.69585120968469,
+                              45.3924036810036
+                          ],
+                          [
+                              -75.69461507875333,
+                              45.39066590208398
+                          ],
+                          [
+                              -75.6945059837744,
+                              45.390383927163384
+                          ],
+                          [
+                              -75.6941746011501,
+                              45.39000217643874
+                          ],
+                          [
+                              -75.69394714656697,
+                              45.38970033356594
+                          ],
+                          [
+                              -75.6938289521502,
+                              45.38966713194219
+                          ],
+                          [
+                              -75.69341664964327,
+                              45.389191421075566
+                          ],
+                          [
+                              -75.69146908788343,
+                              45.38660483584843
+                          ],
+                          [
+                              -75.69078456297177,
+                              45.385769988059224
+                          ],
+                          [
+                              -75.68970345999874,
+                              45.384380532804244
+                          ],
+                          [
+                              -75.68921669174163,
+                              45.38364185916316
+                          ],
+                          [
+                              -75.69052848069794,
+                              45.38338634467138
+                          ],
+                          [
+                              -75.69168681496268,
+                              45.38313720286405
+                          ],
+                          [
+                              -75.69237930149794,
+                              45.383126369212846
+                          ],
+                          [
+                              -75.69314049029308,
+                              45.38278895973005
+                          ],
+                          [
+                              -75.69426419539025,
+                              45.38240829319673
+                          ],
+                          [
+                              -75.69534383363259,
+                              45.382040244235895
+                          ],
+                          [
+                              -75.69707765965103,
+                              45.38146712807199
+                          ],
+                          [
+                              -75.69828190237799,
+                              45.38057272292363
+                          ],
+                          [
+                              -75.69984594718966,
+                              45.37931447009083
+                          ],
+                          [
+                              -75.70028173459652,
+                              45.37886926361392
+                          ],
+                          [
+                              -75.70130847450181,
+                              45.37885250495145
+                          ]
+                      ]
+                  ],
+                  "type": "Polygon"
+              }
+          }
+      ]
+  },
+})
 
-//I think calling the buildings 'Object' can be problematic - Since 'Object' is a structure already it can make conversations confusing
-//db.objects.insertMany()
 
 //GETS - information requested by the client
   //Client is Requesting places names
@@ -189,4 +249,15 @@ db.city.insertMany({
     //(Authentication ? here or client side)
     //Push the data to 'place' collection in 'canada' db
 
-//Closing Database
+
+//connecting to database
+mongodb.connect('mongodb://localhost/cimsTest', {useNewUrlParser: true, useUnifiedTopology: true});
+
+let db = mongodb.connection;
+db.on('error', console.error.bind(console, 'Error connecting to database'));
+db.once('open', function(){
+	User.init(()=>{
+		//startServer();
+		app.listen(3000);
+	})
+});
