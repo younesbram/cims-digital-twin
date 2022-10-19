@@ -2,6 +2,7 @@ const express = require('express')
 const { auth, requiresAuth } = require('express-openid-connect');
 const app = express()
 
+//config to be used for auth0, connecting to OAuth
 const config = {
   authRequired: false,
   auth0Logout: true,
@@ -13,7 +14,7 @@ const config = {
 const compression = require("compression");
 const port = 3000
 const path = require('path');
-let reqpath = path.join(__dirname, "../");
+let reqpath = path.join(__dirname, "../"); //using static
 app.use(express.static(reqpath));
 app.use(compression()); // Compress all HTTP routes for speedy responses
 app.use(auth(config));

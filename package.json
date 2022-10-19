@@ -349,7 +349,7 @@
 
 
 
-"name": "ifc-js-crash-course",
+"name": "nodeserver_CIMS",
   
 
 
@@ -454,7 +454,7 @@
 
 
 "copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm",
-"start": "SET NODE_ENV=production&&nodemon app/app.js"
+"start": "SET NODE_ENV=production&&nodemon app/app.js -e js,mjs,json,html,css"
   
 
 
