@@ -33,6 +33,15 @@ MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
    // useNewUrlParser: true
     if (err) throw err;
     console.log("Database 'cimsTest' created or opened")
+app.listen(3000);
+
+//use <cimsTest> //Create if it doesn't exist, Open if it does - Database
+
+//connecting to database
+MongoClient.connect('mongodb://localhost:3000/cimsTest', function(err, db) {
+   // useNewUrlParser: true
+    if (err) throw err;
+    console.log("Database 'cimsTest' created")
     console.log(db.db)
 
     db.close();
@@ -50,6 +59,12 @@ MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+app.route(["/"])
+    .get((req, res) => {
+        res.status(200);
+        res.setDefaultEncoding("Content-Type","text/html");
+        res.send(pug.renderFile("/Testindex.pug", ))
+    });
 
 ////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
 //TEST new branch
