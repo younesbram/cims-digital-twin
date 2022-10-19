@@ -1,27 +1,7 @@
 //Prototype 1 - Database server for Canada.js
 
-// Node.js program to demonstrate the 
-// response.setHeaders() Method
-  
-// Importing http module
-var http = require('http');
-// Setting up PORT
-const PORT = process.env.PORT || 3000;
-  
-// Creating http Server
-var httpServer = http.createServer(
-       function(request, response) {
-  
-  // Setting up Headers
-  response.setHeader('Content-Type', 'text/html');
-       })
 
-// Listening to http Server
-httpServer.listen(PORT, () => {
-    console.log("Server is running at port 3000...");
-});
 
-const path = require('path');
 const fs = require("fs"); // allows us to work with filesystem
 //Express
 const express = require('express');
@@ -39,14 +19,14 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.set("templates");
 app.set('view engine', 'pug');
-app.use(express.static("public"));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
+const path = require('path');
+let reqpath = path.join(__dirname, "../"); //using static
+app.use(express.static(reqpath));
+
 //sendfile to be able to use html with express
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '../index.html'))
-})
 
 //connecting to database
 MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
@@ -57,6 +37,7 @@ MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
 
     db.close();
 });
+
 
 /*app.route(["/"])
     .get((req, res) => {
