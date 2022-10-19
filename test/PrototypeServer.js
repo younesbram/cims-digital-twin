@@ -1,11 +1,33 @@
 //Prototype 1 - Database server for Canada.js
 
+// Node.js program to demonstrate the 
+// response.setHeaders() Method
+  
+// Importing http module
+var http = require('http');
+// Setting up PORT
+const PORT = process.env.PORT || 3000;
+  
+// Creating http Server
+var httpServer = http.createServer(
+       function(request, response) {
+  
+  // Setting up Headers
+  response.setHeader('Content-Type', 'text/html');
+       })
+
+// Listening to http Server
+httpServer.listen(PORT, () => {
+    console.log("Server is running at port 3000...");
+});
+
+const path = require('path');
 const fs = require("fs"); // allows us to work with filesystem
 //Express
 const express = require('express');
 const bodyParser = require('body-parser'); //parses body of request when using POST request 
 const app = express();
-app.listen(3000);
+//app.listen(3000);
 //mongoDB
 const mongodb = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
@@ -23,25 +45,26 @@ app.use(express.json());
 
 //sendfile to be able to use html with express
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '/index.html'))
+    res.sendFile(path.join(__dirname, '../index.html'))
 })
 
 //connecting to database
-MongoClient.connect('mongodb://localhost:3000/cimsTest', function(err, db) {
+MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
    // useNewUrlParser: true
     if (err) throw err;
-    console.log("Database 'cimsTest' created")
+    console.log("Database 'cimsTest' created or opened")
     console.log(db.db)
 
     db.close();
 });
 
-app.route(["/"])
+/*app.route(["/"])
     .get((req, res) => {
         res.status(200);
         res.setHeader("Content-Type","text/html");
         res.send(pug.renderFile("../index.html", ))
     });
+*/
 
 
 
