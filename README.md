@@ -1,24 +1,22 @@
 # CIMS - Digital Twin 
-open directory, 
+clone to local folder, 
 
-in terminal : npm install
+in terminal : `npm install`
 
-then: 
+then:  `npm start`
 
-nodemon app/app.js 
+this will run it in NODE_ENV production mode. uses express compression middleware, and express auth0 openid-connect.
+runs on nodemon (for better versioning and development)
 
-or
+join localhost:3000
+view website normally.
 
-node app/app.js
+join localhost:3000/logintest
 
-visit localhost:3000
+will be redirected to login -> redirected to /loginstatus
 
-visit localhost:3000/ret to see that you are logged out
+join localhost:3000/profile to see the profile
 
-visit localhost:3000/login to see login page
+join localhost:3000/logout to logout
 
-login with google or signup
-
-visit localhost:3000/ret you will see that you are loged in.
-
-visit localhost:3000/logout to logout
+join localhost:3000/login to manually login
