@@ -1,16 +1,17 @@
-import sortChildren from "../modules/sortChildren";
+import sortChildren from "../modules/sortChildren.js";
 
 export default function createOptions(selector, objects, keepSelectors = 2) {
   while (selector.childElementCount > keepSelectors) {
-    selector.removeChild(selector.lastChild);
+    selector.lastChild.remove();
   }
+
   for (const object in objects) {
     const name = objects[object].name;
-    let option = document.createElement("option");
+    const option = document.createElement("option");
     option.innerHTML = name;
     option.setAttribute("id", object);
-    option.classList.add('option')
-    selector.appendChild(option);
+    option.classList.add("option");
+    selector.append(option);
     sortChildren(selector);
   }
 }

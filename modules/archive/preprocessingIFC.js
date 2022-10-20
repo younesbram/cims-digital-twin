@@ -16,24 +16,24 @@ import {
   IfcPath,
   buildingsNames,
   ifcFileName,
-  // da_IfcPath,
+  // Da_IfcPath,
   // da_ifcFileName,
 } from "../static/data/cdc-data.js";
 
-let province = "ON";
-let city = "Ottawa";
-let site = "cu";
-let currentModelId = "SD";
-let fileRoute = `${province}_${city}_${site}_${currentModelId}_`;
-// let ifcURL = `https://cimsprojects.ca/CDC/CIMS-WebApp/assets/ontario/ottawa/carleton/ifc/${ifcFileName[currentModelId]}`;
+const province = "ON";
+const city = "Ottawa";
+const site = "cu";
+const currentModelId = "SD";
+const fileRoute = `${province}_${city}_${site}_${currentModelId}_`;
+// Let ifcURL = `https://cimsprojects.ca/CDC/CIMS-WebApp/assets/ontario/ottawa/carleton/ifc/${ifcFileName[currentModelId]}`;
 // let ifcURL = `${IfcPath}${ifcFileName[currentModelId]}`;
-let ifcURL = '../assets/carleton/ifc/CDC-CIMS-FEDERATED_BLDGS-SUST-CIMS-DOC-STORMONT_AND_DUNDAS_HOUSE-AS_FOUND.ifcCDC-CIMS-FEDERATED_BLDGS-SUST-CIMS-DOC-STORMONT_AND_DUNDAS_HOUSE-AS_FOUND.ifc'
+const ifcURL =
+  "../assets/carleton/ifc/CDC-CIMS-FEDERATED_BLDGS-SUST-CIMS-DOC-STORMONT_AND_DUNDAS_HOUSE-AS_FOUND.ifcCDC-CIMS-FEDERATED_BLDGS-SUST-CIMS-DOC-STORMONT_AND_DUNDAS_HOUSE-AS_FOUND.ifc";
 
-
-const container = document.getElementById("viewer-container");
+const container = document.querySelector("#viewer-container");
 const viewer = new IfcViewerAPI({
   container,
-  backgroundColor: new Color(0xffffff),
+  backgroundColor: new Color(0xff_ff_ff),
 });
 viewer.IFC.setWasmPath("../src/wasm/");
 
@@ -41,7 +41,7 @@ preposcessIfc(ifcURL, fileRoute);
 
 const ids = [];
 
-// for (currentModelId in da_ifcFileName) {
+// For (currentModelId in da_ifcFileName) {
 //   let fileRoute = `${province}_${city}_${site}_${currentModelId}_`;
 // //   const ifcURL = `https://cimsprojects.ca/CDC/CIMS-WebApp/assets/ontario/ottawa/carleton/ifc/${ifcFileName[currentModelId]}`;
 // let ifcURL = `${da_IfcPath}${da_ifcFileName[currentModelId]}`;
@@ -69,8 +69,8 @@ async function preposcessIfc(url, fileRoute) {
       windows: [IFCWINDOW],
       curtainwalls: [IFCMEMBER, IFCPLATE, IFCCURTAINWALL],
       doors: [IFCDOOR],
-      roofs:[IFCROOF],
-      // furniture: [],
+      roofs: [IFCROOF],
+      // Furniture: [],
       // structure: [],
       // mep: [],
     },
@@ -78,8 +78,8 @@ async function preposcessIfc(url, fileRoute) {
   });
 
   // Download result
-  let link = document.createElement("a");
-  document.body.appendChild(link);
+  const link = document.createElement("a");
+  document.body.append(link);
 
   for (const categoryName in result.gltf) {
     const category = result.gltf[categoryName];
@@ -93,11 +93,11 @@ async function preposcessIfc(url, fileRoute) {
     }
   }
 
-  for (let jsonFile of result.json) {
+  for (const jsonFile of result.json) {
     link.download = `${fileRoute}${jsonFile.name}`;
     link.href = URL.createObjectURL(jsonFile);
     link.click();
   }
 
-    link.remove();
+  link.remove();
 }

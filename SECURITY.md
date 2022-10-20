@@ -1,5 +1,7 @@
 # Security Policy
+
 To be filled out
+
 ## Supported Versions
 
 | Version | Supported          |

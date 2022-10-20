@@ -1,9 +1,10 @@
-# CIMS - Digital Twin 
-clone to local folder, 
+# CIMS - Digital Twin
+
+clone to local folder,
 
 in terminal : `npm install`
 
-then:  `npm start`
+then: `npm start`
 
 this will run it in NODE_ENV production mode. uses express compression middleware, and express auth0 openid-connect.
 runs on nodemon (for better versioning and development)

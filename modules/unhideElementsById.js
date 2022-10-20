@@ -1,5 +1,5 @@
 export default function unhideElementsById(...ids) {
-    ids.forEach(id => {
-       document.getElementById(id).classList.remove('hidden');
-    });
+  for (const id of ids) {
+    document.getElementById(id).classList.remove("hidden");
   }
+}

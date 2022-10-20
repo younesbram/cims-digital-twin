@@ -1,41 +1,39 @@
-//Prototype 1 - Client for Canada.js server
-//The geocoding queires will stay client side
+// Prototype 1 - Client for Canada.js server
+// The geocoding queires will stay client side
 
-//connecting to database
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+// connecting to database
+const MongoClient = require("mongodb").MongoClient;
+const assert = require("assert");
 
-//connection url
-const url = 'mongodb://localhost:3000';
+// Connection url
+const url = "mongodb://localhost:3000";
 
-//database name
-const dbName = 'cimsTest';
+// Database name
+const dbName = "cimsTest";
 
-//connecting to server
-mongodb.MongoClient.connect(url, (err, client) => {
-  //assert.equal(null, err);
+// Connecting to server
+mongodb.MongoClient.connect(url, (error, client) => {
+  // Assert.equal(null, err);
   console.log("Successful connection to server");
 
   const db = client.db(dbName);
 
   client.close();
-})
+});
 
-//GETS
-//Requesting places names
-    //Populating the dropdown for selecting a place
+// GETS
+// Requesting places names
+// Populating the dropdown for selecting a place
 
-//Requesting a 'place's geoJSON 
-    //This function would be called when a place is selected
-    //Using received data to query the map with mapbox geocodingis
+// Requesting a 'place's geoJSON
+// This function would be called when a place is selected
+// Using received data to query the map with mapbox geocodingis
 
-//POSTS
-//Sending a 'new place's data to the server
-//Mapbox-viewer - line 933-946
+// POSTS
+// Sending a 'new place's data to the server
+// Mapbox-viewer - line 933-946
 
-
-
-//connecting to server
+// connecting to server
 /*
 MongoClient.connect(url, funtion(err, client),{
   assert.equal(null, err);
@@ -44,4 +42,4 @@ MongoClient.connect(url, funtion(err, client),{
   const db = client.db(dbName);
 
   client.close();
-})*/
+}) */

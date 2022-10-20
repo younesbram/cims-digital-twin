@@ -1,8 +1,5 @@
-import canada from "./canada";
 import { Color, LineBasicMaterial, MeshBasicMaterial } from "three";
 import { IfcViewerAPI } from "web-ifc-viewer";
-
-import * as cdt from "../modules/cdt-api";
 
 import {
   IFCWALL,
@@ -23,48 +20,50 @@ import {
   IFCRAMP,
   IFCRAMPFLIGHT,
 } from "web-ifc";
+import * as cdt from "../modules/cdt-api.js";
 
-// import Stats from "stats.js/src/Stats";
+import canada from "./canada.js";
+
+// Import Stats from "stats.js/src/Stats";
 
 // Get the URL parameter
 const currentURL = window.location.href;
 const url = new URL(currentURL);
 const currentModelCode = url.searchParams.get("id");
-let codes = currentModelCode.split("/");
-let province = { term: codes[0] };
-let city = { name: codes[1] };
+const codes = currentModelCode.split("/");
+const province = { term: codes[0] };
+const city = { name: codes[1] };
 let place = { id: codes[2] };
-let object = { id: codes[3], name: "" };
+const object = { id: codes[3], name: "" };
 const toggle = {};
 const objectPath = `assets/${province.term}/${city.name}/${place.id}/objects/${object.id}`;
 const objectFileName = `${province.term}_${city.name}_${place.id}_${object.id}`;
 const glbFilePath = `${objectPath}/glb/${objectFileName}`;
-// const ifcFilePath = `assets/${currentModelCode}/ifc/${objectFileName}`;
-let model = {};
+// Const ifcFilePath = `assets/${currentModelCode}/ifc/${objectFileName}`;
+const model = {};
 
 place = canada.provinces[province.term].cities[city.name].places[place.id];
 
-let objects = place.objects;
+const objects = place.objects;
 
 object.name = objects[object.id].name;
 
-const container = document.getElementById("viewer-container");
+const container = document.querySelector("#viewer-container");
 
 // GUI  👌 _________________________________________________________________________________________
 // tools ⚒️
-cdt.toggleButton("tools-button", false, "tools-container")
+cdt.toggleButton("tools-button", false, "tools-container");
 
-// layers ⚒️
-cdt.toggleButton("layers-button", false, "layers-container")
+// Layers ⚒️
+cdt.toggleButton("layers-button", false, "layers-container");
 
-// project tree 🌳
-cdt.toggleButton("ifc-tree-button", false, "ifc-tree-menu", "side-menu")
-
+// Project tree 🌳
+cdt.toggleButton("ifc-tree-button", false, "ifc-tree-menu", "side-menu");
 
 // IFC Viewer 👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️👁️
 const viewer = new IfcViewerAPI({
   container,
-  backgroundColor: new Color(0x8c8c8c),
+  backgroundColor: new Color(0x8c_8c_8c),
 });
 viewer.IFC.setWasmPath("wasm/");
 const scene = viewer.context.getScene();
@@ -76,54 +75,60 @@ viewer.IFC.loader.ifcManager.applyWebIfcConfig({
   COORDINATE_TO_ORIGIN: true,
 });
 
-object.ifcURL = `${place.ifcPath}${object.id}/ifc/${place.objects[object.id].ifcFileName}`;
+object.ifcURL = `${place.ifcPath}${object.id}/ifc/${
+  place.objects[object.id].ifcFileName
+}`;
 
 // Projection
-document.getElementById("projection").onclick = () =>
-  viewer.context.ifcCamera.toggleProjection();
+document
+  .querySelector("#projection")
+  .addEventListener("click", () => viewer.context.ifcCamera.toggleProjection());
 
 // Load objects 🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️🏗️
 
 let properties;
 let projectTree;
-// const plansContainer = document.getElementById("plans-menu");
+// Const plansContainer = document.getElementById("plans-menu");
 
 loadIfc(object.ifcURL);
 
 async function loadIfc(ifcURL) {
-  const loadingContainer = document.getElementById("loader-container");
-  const progressText = document.getElementById("progress-text");
+  const loadingContainer = document.querySelector("#loader-container");
+  const progressText = document.querySelector("#progress-text");
 
-    let categories = [
-      "walls",
-      "slabs",
-      "roofs",
-      "curtainwalls",
-      "windows",
-      "doors",
-      "columns",
-      "furniture",
-      "stairs",
-    ];
+  const categories = [
+    "walls",
+    "slabs",
+    "roofs",
+    "curtainwalls",
+    "windows",
+    "doors",
+    "columns",
+    "furniture",
+    "stairs",
+  ];
 
-    categories.forEach((category) => {
-      model[category] = loadGlbByCategory(category);
+  for (const category of categories) {
+    model[category] = loadGlbByCategory(category);
 
-      async function loadGlbByCategory(category) {
-        let categoryGlb = await viewer.GLTF.loadModel(
-          `${glbFilePath}_${category}.glb`
-        );
-        if (category === "walls") await viewer.context.ifcCamera.cameraControls.fitToBox(categoryGlb);
-        if (categoryGlb.modelID > -1) {
-          // Postproduction 💅
-          viewer.shadowDropper.renderShadow(categoryGlb.modelID);
-          // ClippingEdges.newStyleFromMesh(`${category}-style`, categoryGlb, lineMaterial)
-          return categoryGlb;
-        } else {
-          throw new Error(`${category} does not exist in this object`);
-        }
+    async function loadGlbByCategory(category) {
+      const categoryGlb = await viewer.GLTF.loadModel(
+        `${glbFilePath}_${category}.glb`
+      );
+      if (category === "walls") {
+        await viewer.context.ifcCamera.cameraControls.fitToBox(categoryGlb);
       }
-    });    
+
+      if (categoryGlb.modelID > -1) {
+        // Postproduction 💅
+        viewer.shadowDropper.renderShadow(categoryGlb.modelID);
+        // ClippingEdges.newStyleFromMesh(`${category}-style`, categoryGlb, lineMaterial)
+        return categoryGlb;
+      }
+
+      throw new Error(`${category} does not exist in this object`);
+    }
+  }
 
   viewer.context.renderer.postProduction.active = true;
   loadingContainer.classList.add("hidden");
@@ -145,14 +150,14 @@ async function loadIfc(ifcURL) {
 
   //   await viewer.plans.computeAllPlanViews(model.modelID);
 
-    const lineMaterial = new LineBasicMaterial({ color: "black" });
-    const baseMaterial = new MeshBasicMaterial({
-      polygonOffset: true,
-      polygonOffsetFactor: 1,
-      polygonOffsetUnits: 1,
-    });
+  const lineMaterial = new LineBasicMaterial({ color: "black" });
+  const baseMaterial = new MeshBasicMaterial({
+    polygonOffset: true,
+    polygonOffsetFactor: 1,
+    polygonOffsetUnits: 1,
+  });
 
-  //   await viewer.edges.create(
+  //   Await viewer.edges.create(
   //     "plan-edges",
   //     model.modelID,
   //     lineMaterial,
@@ -178,7 +183,7 @@ async function loadIfc(ifcURL) {
   //   return await models;
 }
 
-// const button = document.createElement("button");
+// Const button = document.createElement("button");
 // plansContainer.appendChild(button);
 // button.classList.add("button");
 // button.textContent = "Exit Level View";
@@ -191,43 +196,45 @@ async function loadIfc(ifcURL) {
 
 // Hover → Highlight
 viewer.IFC.selector.preselection.material = cdt.hoverHighlihgtMaterial;
-window.onmousemove = () => viewer.IFC.selector.prePickIfcItem();
+window.addEventListener("mousemove", () =>
+  viewer.IFC.selector.prePickIfcItem()
+);
 
 // Dimensions 📏📏📏📏📏📏📏📏📏📏📏📏📏📏📏📏📏
-const dimensionsButton = document.getElementById("dimensions");
+const dimensionsButton = document.querySelector("#dimensions");
 toggle.dimensions = false;
 let clicked = 0;
-dimensionsButton.onclick = () => {
+dimensionsButton.addEventListener("click", () => {
   toggle.dimensions = !toggle.dimensions;
   viewer.dimensions.active = toggle.dimensions;
   viewer.dimensions.previewActive = toggle.dimensions;
-  let button = document.getElementById("dimensions");
+  const button = document.querySelector("#dimensions");
   cdt.selectedButton(button, toggle.dimensions, true);
   updatePostProduction();
   clicked = 0;
-};
+});
 
 // Clipping planes
-const clippingButton = document.getElementById("clipping");
+const clippingButton = document.querySelector("#clipping");
 toggle.clipping = false;
-clippingButton.onclick = () => {
+clippingButton.addEventListener("click", () => {
   toggle.clipping = !toggle.clipping;
   viewer.IFC.selector.unHighlightIfcItems();
   viewer.clipper.active = toggle.clipping;
   // ClippingEdges.createDefaultIfcStyles = false;
-  let button = document.getElementById("clipping");
+  const button = document.querySelector("#clipping");
   cdt.selectedButton(button, toggle.clipping, true);
-};
+});
 
 // Properties 📃📃📃📃📃📃📃📃📃📃📃📃📃📃📃📃📃📃📃
-const propsGUI = document.getElementById("ifc-property-menu-root");
-const propButton = document.getElementById("properties-button");
+const propsGUI = document.querySelector("#ifc-property-menu-root");
+const propButton = document.querySelector("#properties-button");
 toggle.proprerties = false;
 viewer.IFC.selector.selection.material = cdt.hoverHighlihgtMaterial;
 
 // Pick → propterties
 propButton.addEventListener("click", () => {
-  const propertyMenu = document.getElementById("ifc-property-menu");
+  const propertyMenu = document.querySelector("#ifc-property-menu");
   toggle.proprerties = !toggle.proprerties;
   cdt.selectedButton(propButton, toggle.proprerties, true);
   if (toggle.proprerties) {
@@ -242,7 +249,7 @@ propButton.addEventListener("click", () => {
 });
 
 // Click → Dimensions 📏
-window.onclick = async () => {
+window.addEventListener("click", async () => {
   if (clicked > 0 && toggle.dimensions) {
     viewer.dimensions.create();
   }
@@ -253,40 +260,43 @@ window.onclick = async () => {
     const psets = getPropertySets(foundProperties);
     createPropsMenu(psets);
   }
+
   clicked++;
-};
+});
 
 // Keybord ⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️
-window.onkeydown = (event) => {
+window.addEventListener("keydown", (event) => {
   const keyName = event.key;
   if (keyName === "e") {
     console.log("export:", object.name);
     preproscessIfc(object);
   }
+
   if (event.code === "Escape") {
     viewer.IFC.selector.unpickIfcItems();
     viewer.IFC.selector.unHighlightIfcItems();
   }
+
   if (event.code === "Space") {
     viewer.context.fitToFrame();
   }
 
   if (event.code === "Delete" && toggle.dimensions) {
     viewer.dimensions.delete();
-    updatePostProduction()
+    updatePostProduction();
   }
+
   if (event.code === "Delete" && toggle.clipping) {
     viewer.clipper.deletePlane();
   }
-};
+});
 
-window.ondblclick = () => {
+window.addEventListener("dblclick", () => {
   // Clipping Planes ✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️
   if (toggle.clipping) {
     viewer.clipper.createPlane();
-    return;
   }
-};
+});
 
 // Utils functions
 function getFirstItemOfType(type) {
@@ -325,16 +335,19 @@ async function constructSpatialTreeNode(item, contains, spatials) {
   );
 
   const spatialRelsIDs = [];
-  spatialRels.forEach((rel) => spatialRelsIDs.push(...rel.RelatedElements));
+  for (const rel of spatialRels) {
+    spatialRelsIDs.push(...rel.RelatedElements);
+  }
 
   const containsRelsIDs = [];
-  containsRels.forEach((rel) => containsRelsIDs.push(...rel.RelatedObjects));
+  for (const rel of containsRels) {
+    containsRelsIDs.push(...rel.RelatedObjects);
+  }
 
   const childrenIDs = [...spatialRelsIDs, ...containsRelsIDs];
 
   const children = [];
-  for (let i = 0; i < childrenIDs.length; i++) {
-    const childID = childrenIDs[i];
+  for (const childID of childrenIDs) {
     const props = properties[childID];
     const child = {
       expressID: props.expressID,
@@ -363,9 +376,10 @@ function getPropertySets(props) {
   const psets = relatedPsetsRels.map(
     (item) => properties[item.RelatingPropertyDefinition]
   );
-  for (let pset of psets) {
+  for (const pset of psets) {
     pset.HasProperty = pset.HasProperties.map((id) => properties[id]);
   }
+
   props.psets = psets;
   return props;
 }
@@ -381,8 +395,11 @@ function createPropsMenu(props) {
   delete props.mats;
   delete props.type;
 
-  for (let key in props) {
-    if (props[key] === null) return;
+  for (const key in props) {
+    if (props[key] === null) {
+      return;
+    }
+
     createPropertyEntry(key, props[key]);
   }
 }
@@ -391,27 +408,30 @@ function createPropertyEntry(key, value) {
   const propContainer = document.createElement("div");
   propContainer.classList.add("ifc-property-item");
 
-  if (value === null || value === undefined) value = "undefined";
-  else if (value.value) value = value.value;
+  if (value === null || value === undefined) {
+    value = "undefined";
+  } else if (value.value) {
+    value = value.value;
+  }
 
   const keyElement = document.createElement("div");
   keyElement.textContent = key;
-  propContainer.appendChild(keyElement);
+  propContainer.append(keyElement);
 
   const valueElement = document.createElement("div");
   valueElement.classList.add("ifc-property-value");
   valueElement.textContent = value;
-  propContainer.appendChild(valueElement);
+  propContainer.append(valueElement);
 
-  propsGUI.appendChild(propContainer);
+  propsGUI.append(propContainer);
 }
 
-// properties 📒
-cdt.toggleButton("properties-button", false, "ifc-property-menu", "side-menu")
+// Properties 📒
+cdt.toggleButton("properties-button", false, "ifc-property-menu", "side-menu");
 
 // Project Tree 🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳🌳
 
-const toggler = document.getElementsByClassName("caret");
+const toggler = document.querySelectorAll(".caret");
 let i;
 
 for (i = 0; i < toggler.length; i++) {
@@ -422,7 +442,7 @@ for (i = 0; i < toggler.length; i++) {
 }
 
 function createTreeMenu(ifcProject) {
-  const root = document.getElementById("tree-root");
+  const root = document.querySelector("#tree-root");
   removeAllChildren(root);
   const ifcProjectNode = createNestedChild(root, ifcProject);
   for (const child of ifcProject.children) {
@@ -436,6 +456,7 @@ function constructTreeMenuNode(parent, node) {
     createSimpleChild(parent, node);
     return;
   }
+
   const nodeElement = createNestedChild(parent, node);
   for (const child of children) {
     constructTreeMenuNode(nodeElement, child);
@@ -447,11 +468,11 @@ function createSimpleChild(parent, node) {
   const childNode = document.createElement("li");
   childNode.classList.add("leaf-node");
   childNode.textContent = content;
-  parent.appendChild(childNode);
+  parent.append(childNode);
 
-  childNode.onclick = async () => {
+  childNode.addEventListener("click", async () => {
     viewer.IFC.selector.pickIfcItemsByID(0, [node.expressID]);
-  };
+  });
 }
 
 function createNestedChild(parent, node) {
@@ -460,21 +481,21 @@ function createNestedChild(parent, node) {
   createTitle(root, content);
   const childrenContainer = document.createElement("ul");
   childrenContainer.classList.add("nested");
-  root.appendChild(childrenContainer);
-  parent.appendChild(root);
+  root.append(childrenContainer);
+  parent.append(root);
   return childrenContainer;
 }
 
 function createTitle(parent, content) {
   const title = document.createElement("span");
   title.classList.add("caret");
-  title.onclick = () => {
+  title.addEventListener("click", () => {
     title.parentElement.querySelector(".nested").classList.toggle("active");
     title.classList.toggle("caret-down");
-  };
+  });
 
   title.textContent = content;
-  parent.appendChild(title);
+  parent.append(title);
 }
 
 function nodeToString(node) {
@@ -483,14 +504,14 @@ function nodeToString(node) {
 
 function removeAllChildren(element) {
   while (element.firstChild) {
-    element.removeChild(element.firstChild);
+    element.firstChild.remove();
   }
 }
 
 // Labeling 💬💬💬💬💬💬💬💬💬💬💬💬💬💬💬💬💬💬💬
 // Get user
-let currentUser = "Nico";
-// document
+const currentUser = "Nico";
+// Document
 //   .getElementById("user")
 //   .addEventListener(
 //     "change",
@@ -498,18 +519,23 @@ let currentUser = "Nico";
 //   );
 
 // 🗣️ write a message
-const messageButton = document.getElementById("message-button")
-cdt.toggleVisibility(messageButton, toggle.message)
+const messageButton = document.querySelector("#message-button");
+cdt.toggleVisibility(messageButton, toggle.message);
 
-window.oncontextmenu = () => {
-  let toggleMessage = document.getElementById("message-button").classList.contains('selected-button')
-  console.log(toggleMessage)
+window.addEventListener("contextmenu", () => {
+  const toggleMessage = document
+    .querySelector("#message-button")
+    .classList.contains("selected-button");
+  console.log(toggleMessage);
   const collision = viewer.context.castRayIfc(model);
-  console.log(collision)
-  if (!toggleMessage || collision === null) return;
+  console.log(collision);
+  if (!toggleMessage || collision === null) {
+    return;
+  }
+
   const collisionLocation = collision.point;
   cdt.labeling(scene, collisionLocation, currentUser);
-};
+});
 
 function toggleShadow(active) {
   const shadows = Object.values(viewer.shadowDropper.shadows);
@@ -538,15 +564,15 @@ async function preproscessIfc(object) {
       columns: [IFCCOLUMN],
       stairs: [IFCSTAIRFLIGHT, IFCSTAIR],
       ramps: [IFCRAMP, IFCRAMPFLIGHT],
-      // mep: [],
+      // Mep: [],
     },
   });
 
   // Download result
   const link = document.createElement("a");
-  document.body.appendChild(link);
+  document.body.append(link);
 
-  for (let jsonFile of result.json) {
+  for (const jsonFile of result.json) {
     link.download = `${objectFileName}_properties.json`;
     link.href = URL.createObjectURL(jsonFile);
     link.click();
@@ -570,7 +596,6 @@ async function preproscessIfc(object) {
 function updatePostProduction() {
   viewer.context.renderer.postProduction.update();
 }
-
 
 // Set up stats
 // const stats = new Stats();

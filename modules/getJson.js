@@ -1,5 +1,5 @@
 export default async function getJson(path) {
-    let response = await fetch(path);
-    let json = await response.json();
-    return json;
-  }
+  const response = await fetch(path);
+  const json = await response.json();
+  return json;
+}

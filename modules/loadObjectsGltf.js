@@ -1,25 +1,27 @@
 import { Group } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
+const isMobile =
+  /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+    navigator.userAgent
+  );
 
 export default function loadObjectsGltf(site, currentScene) {
   const group = new Group();
   group.name = `${site.id}-objects`;
   const gltfloader = new GLTFLoader();
   let categories = [];
-  let objects = site.objects;
+  const objects = site.objects;
   let objectGltf;
-  let loadingContainer = document.getElementById("loader-container");
-  let progressText = document.getElementById("progress-text");
-  if (isMobile) {
-    categories = [];
-  }
-  else{ 
-    categories = ["roofs", "walls", "slabs", "curtainwalls", "windows"] 
-  }
-  categories.forEach((category) => {
+  const loadingContainer = document.querySelector("#loader-container");
+  const progressText = document.querySelector("#progress-text");
+  categories = isMobile
+    ? []
+    : ["roofs", "walls", "slabs", "curtainwalls", "windows"];
+
+  for (const category of categories) {
     for (const id in objects) {
-      let gltfPath = `${site.gltfPath}${id}_${category}_allFloors.gltf`;
+      const gltfPath = `${site.gltfPath}${id}_${category}_allFloors.gltf`;
       gltfloader.load(
         gltfPath,
         (gltf) => {
@@ -32,11 +34,12 @@ export default function loadObjectsGltf(site, currentScene) {
           loadingContainer.classList.remove("hidden");
           progressText.textContent = `Loading ${site.name}'s objects`;
         },
-        (error) => {
-          return;
-        }
+        (error) => {}
       );
     }
-  });
-  if (!currentScene.getObjectByName(`${site.id}-objects`)) currentScene.add(group);
+  }
+
+  if (!currentScene.getObjectByName(`${site.id}-objects`)) {
+    currentScene.add(group);
+  }
 }

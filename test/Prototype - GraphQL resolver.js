@@ -1,15 +1,10 @@
-/* resolvers.js*/
+/* Resolvers.js */
 
-//const {Places} /* Need to import our Places data from our database*/
+// const {Places} /* Need to import our Places data from our database*/
 
 const resolvers = {
-    places: async (_) => {
-      return Places;
-    },
-    place: async ({ id }, context) => {
-      return Places.find((place) => place.id == id)
-    }
-  };
-
+  places: async (_) => Places,
+  place: async ({ id }, context) => Places.find((place) => place.id == id),
+};
 
 module.exports = resolvers;

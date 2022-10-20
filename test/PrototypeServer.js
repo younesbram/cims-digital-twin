@@ -1,45 +1,47 @@
-//Prototype 1 - Database server for Canada.js
+// Prototype 1 - Database server for Canada.js
 
-
-
-const fs = require("fs"); // allows us to work with filesystem
-//Express
-const express = require('express');
-const bodyParser = require('body-parser'); //parses body of request when using POST request 
+const fs = require("fs"); // Allows us to work with filesystem
+// Express
+const express = require("express");
+const bodyParser = require("body-parser");
+// Parses body of request when using POST request
 const app = express();
-//app.listen(3000);
-//mongoDB
-const mongodb = require('mongodb');
-const MongoClient = require('mongodb').MongoClient;
-//pug
-const pug = require('pug');
+// App.listen(3000);
+// mongoDB
+const mongodb = require("mongodb");
+const MongoClient = require("mongodb").MongoClient;
+// Pug
+const pug = require("pug");
 
-//middleware
+// Middleware
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.set("templates");
-app.set('view engine', 'pug');
-app.use(express.urlencoded({extended:true}));
+app.set("view engine", "pug");
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const path = require('path');
-let reqpath = path.join(__dirname, "../"); //using static
+const path = require("path");
+
+const reqpath = path.join(__dirname, "../"); // Using static
 app.use(express.static(reqpath));
 
-//sendfile to be able to use html with express
+// Sendfile to be able to use html with express
 
-//connecting to database
-MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
-   // useNewUrlParser: true
-    if (err) throw err;
-    console.log("Database 'cimsTest' created or opened")
-    console.log(db.db)
+// connecting to database
+MongoClient.connect("mongodb://localhost:27017/cimsTest", (error, db) => {
+  // UseNewUrlParser: true
+  if (error) {
+    throw error;
+  }
 
-    db.close();
+  console.log("Database 'cimsTest' created or opened");
+  console.log(db.db);
+
+  db.close();
 });
 
-
-/*app.route(["/"])
+/* App.route(["/"])
     .get((req, res) => {
         res.status(200);
         res.setHeader("Content-Type","text/html");
@@ -47,17 +49,15 @@ MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
     });
 */
 
+/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/// /statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
+// TEST new branch
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////statically inserting Canada.js data inside Canada db, collections - Province, City, Place, Object
-//TEST new branch
-
-/*db.place.insertMany({
+/* db.place.insertMany({
     name: "Carleton University",
     id: "CDC",
-    coordinates: {                
+    coordinates: {
         lat: 45.38435,
         lng: -75.69435,
         msl: 80,
@@ -273,15 +273,13 @@ MongoClient.connect('mongodb://localhost:27017/cimsTest', function(err, db) {
           }
       ]
   },
-})*/
+}) */
 
-//GETS - information requested by the client
-  //Client is Requesting places names
-  //Client is Requesting a 'place's geoJSON 
+// GETS - information requested by the client
+// Client is Requesting places names
+// Client is Requesting a 'place's geoJSON
 
-//POSTs - information sent by the client
-  //Client is Sending a 'new place's data to the server
-    //(Authentication ? here or client side)
-    //Push the data to 'place' collection in 'canada' db
-
-
+// POSTs - information sent by the client
+// Client is Sending a 'new place's data to the server
+// (Authentication ? here or client side)
+// Push the data to 'place' collection in 'canada' db

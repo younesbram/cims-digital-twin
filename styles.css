@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   --border-radius: 1rem;
   --primary-light: white;
   --primary-light-transp1: rgba(255, 255, 255, 0.7);
@@ -11,7 +11,7 @@
   --dark-transparent: rgba(0, 0, 0, 0.5);
   --secondary-color: #8c8c8c;
   --secondary-transp1: #8c8c8cee;
-  --icdt-color: #73CEE2;
+  --icdt-color: #73cee2;
   --shadow: 0.4rem 0.4rem 0.6rem #00000040;
   --darker-shadow: 0.3rem 0.3rem 0.3rem #000000aa;
   --blur: blur(3px);
@@ -34,7 +34,7 @@ hide-overflow {
 
 header {
   display: flex;
-  align-items:flex-start;
+  align-items: flex-start;
   flex-direction: row;
   justify-content: flex-start;
   pointer-events: none;
@@ -89,7 +89,7 @@ a {
 }
 
 .select-visible {
-  display: inline-block
+  display: inline-block;
 }
 
 .canvas {
@@ -117,8 +117,6 @@ a {
   flex-direction: column;
 }
 
-
-
 .white-icon svg {
   transition: all 0.3s ease 0s;
   cursor: pointer;
@@ -133,13 +131,13 @@ a {
   stroke-linejoin: round;
 }
 
-.white-icon:hover>svg {
+.white-icon:hover > svg {
   fill: var(--icdt-color);
   scale: 1.05;
 }
 
 .selected-button svg {
-  fill: #93B9E2;
+  fill: #93b9e2;
   scale: 1.05;
 }
 
@@ -168,7 +166,7 @@ a {
   pointer-events: all;
 }
 
-.double-list-container>div {
+.double-list-container > div {
   flex: 50%;
 }
 
@@ -183,7 +181,7 @@ a {
   font-weight: 600;
 }
 
-.gray-underline{
+.gray-underline {
   width: 100%;
   border-bottom: solid 1px #888;
 }
@@ -549,7 +547,7 @@ ul,
 }
 
 .mapbox-marker {
-  background-image: url('../static/logos/cims-logo-black.jpg');
+  background-image: url("../static/logos/cims-logo-black.jpg");
   background-size: cover;
   width: 35px;
   height: 35px;
@@ -603,7 +601,7 @@ ul,
   }
 
   50% {
-    color: rgba(255, 255, 255, 0)
+    color: rgba(255, 255, 255, 0);
   }
 
   75% {
@@ -687,13 +685,13 @@ ul,
   z-index: 1;
   height: 2.3rem;
   margin-right: 0.5rem;
-  }
+}
 
-  .mapboxgl-ctrl-geocoder {
+.mapboxgl-ctrl-geocoder {
   min-width: 100%;
   /* background-color: var(--primary-light-transp1); */
   border-radius: 0.5rem;
-  }
+}
 
 .hidden {
   display: none;

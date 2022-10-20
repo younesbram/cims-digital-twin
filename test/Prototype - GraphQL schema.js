@@ -1,10 +1,10 @@
-/* schema.js */
+/* Schema.js */
 
-/*How is the gltfPath being used?*/ 
-/*How is the gltfMasses being used?*/ 
-/*What is in Properties?*/
+/* How is the gltfPath being used? */
+/* How is the gltfMasses being used? */
+/* What is in Properties? */
 
-//Objects will have coordinates
+// Objects will have coordinates
 
 const { buildSchema } = require("graphql");
 

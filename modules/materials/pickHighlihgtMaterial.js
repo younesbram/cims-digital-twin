@@ -1,10 +1,8 @@
-import {
-  MeshBasicMaterial,
-} from "three";
+import { MeshBasicMaterial } from "three";
 
 export default pickHighlihgtMateral = new MeshBasicMaterial({
-    transparent: true,
-    opacity: 0.6,
-    color: 0xffff30,
-    depthTest: false,
-  });
+  transparent: true,
+  opacity: 0.6,
+  color: 0xff_ff_30,
+  depthTest: false,
+});
