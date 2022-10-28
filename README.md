@@ -1,5 +1,6 @@
 # CIMS - Digital Twin
 
+1st task : Login page
 clone to local folder,
 
 in terminal : `npm install`
@@ -28,3 +29,8 @@ please register on https://auth0.com/signup
 then start a new app from auth0 dashboard and follow the steps(all you really have to do is change the config as i already set it up)
 https://github.com/auth0/express-openid-connect#documentation
 https://www.npmjs.com/package/express-openid-connect
+
+2nd task : added node, used express compression() to compress routes, used multiple node packages to lint, fixed the package.json file to have the following 2 commands
+(hint before running commands npm install)
+`npm lintcheck` this runs a check of everything with prettier
+`npm lint` if you actually want them to change the files.
