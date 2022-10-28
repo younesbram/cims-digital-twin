@@ -21,3 +21,10 @@ join localhost:3000/profile to see the profile
 join localhost:3000/logout to logout
 
 join localhost:3000/login to manually login
+
+
+currently, my github account is the one with access to this prototype login functioanlity.
+please register on https://auth0.com/signup
+then start a new app from auth0 dashboard and follow the steps(all you really have to do is change the config as i already set it up)
+https://github.com/auth0/express-openid-connect#documentation
+https://www.npmjs.com/package/express-openid-connect
