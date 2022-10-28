@@ -32,5 +32,5 @@ https://www.npmjs.com/package/express-openid-connect
 
 2nd task : added node, used express compression() to compress routes, used multiple node packages to lint, fixed the package.json file to have the following 2 commands
 (hint before running commands npm install)
-`npm lintcheck` this runs a check of everything with prettier
-`npm lint` if you actually want them to change the files.
+`npm run lintcheck` this runs a check of everything with prettier
+`npm run lint` if you actually want them to change the files.
