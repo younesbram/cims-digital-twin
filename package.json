@@ -17,6 +17,7 @@
     "mapbox": "^1.0.0-beta10",
     "mapbox-gl-style-switcher": "^1.0.11",
     "mongodb": "^4.11.0",
+    "nodemon": "^2.0.20",
     "pug": "^3.0.2",
     "stats.js": "^0.17.0",
     "three": "^0.135.0",
@@ -34,6 +35,8 @@
     "watch": "rollup -w -c ./rollup.config.js",
     "update-ifcjs": "npm i web-ifc-three@latest && npm i && copy-wasm",
     "copy-wasm": "cpy node_modules/web-ifc/web-ifc.wasm . && cpy node_modules/web-ifc/web-ifc-mt.wasm",
+    "lintcheck": "npx prettier --check .",
+    "lint": "npx prettier --write .",
     "start": "SET NODE_ENV=production&&nodemon app/app.js -e js,mjs,json,html,css",
     "test": "xo"
   },
