@@ -34,3 +34,4 @@ https://www.npmjs.com/package/express-openid-connect
 (hint before running commands npm install)
 `npm run lintcheck` this runs a check of everything with prettier
 `npm run lint` if you actually want them to change the files.
+https://prettier.io/docs/en/comparison.html
