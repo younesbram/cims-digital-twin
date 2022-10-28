@@ -30,8 +30,10 @@ then start a new app from auth0 dashboard and follow the steps(all you really ha
 https://github.com/auth0/express-openid-connect#documentation
 https://www.npmjs.com/package/express-openid-connect
 
-2nd task : added node, used express compression() to compress routes, used multiple node packages to lint, fixed the package.json file to have the following 2 commands
+2nd task : added node, used express compression() to compress routes, npm helmet for security in routes, used multiple node packages to lint, fixed the package.json file to have the following 2 commands
 (hint before running commands npm install)
 `npm run lintcheck` this runs a check of everything with prettier
 `npm run lint` if you actually want them to change the files.
 https://prettier.io/docs/en/comparison.html
+
+future goals for this project : use codacy more, use prettier + ESLint as a pre-commit hook with git, automated testing.
